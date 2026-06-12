@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "45193997428",
+    "project_id": "af-mobile-c12cf",
+    "storage_bucket": "af-mobile-c12cf.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:45193997428:android:0dbd97963daeef652c3521",
+        "android_client_info": {
+          "package_name": "com.facens.af"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBhNvBHhqdGGMnE7AQn4PBM56SepKeJArM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

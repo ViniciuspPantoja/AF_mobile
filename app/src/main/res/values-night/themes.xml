@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Base.Theme.AF" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="colorPrimary">#CCCCCC</item>
+        <item name="colorPrimaryVariant">#AAAAAA</item>
+        <item name="colorOnPrimary">#111111</item>
+        <item name="colorSecondary">#999999</item>
+        <item name="colorOnSecondary">#111111</item>
+        <item name="android:colorBackground">#1A1A1A</item>
+        <item name="colorSurface">#2A2A2A</item>
+        <item name="colorOnSurface">#EEEEEE</item>
+        <item name="android:textColorPrimary">#EEEEEE</item>
+        <item name="android:textColorSecondary">#AAAAAA</item>
+    </style>
+</resources>

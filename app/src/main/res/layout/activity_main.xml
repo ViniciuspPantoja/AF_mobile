@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/cinza_fundo">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <!-- Card: Dados do destino -->
+        <androidx.cardview.widget.CardView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="2dp"
+            app:cardBackgroundColor="@color/cinza_card">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Novo Destino"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/cinza_texto"
+                    android:layout_marginBottom="12dp" />
+
+                <EditText
+                    android:id="@+id/etTitulo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Nome do destino"
+                    android:textColorHint="@color/cinza_hint"
+                    android:textColor="@color/cinza_texto"
+                    android:inputType="text"
+                    android:layout_marginBottom="8dp" />
+
+                <EditText
+                    android:id="@+id/etDescricao"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Suas anotações"
+                    android:textColorHint="@color/cinza_hint"
+                    android:textColor="@color/cinza_texto"
+                    android:inputType="textMultiLine"
+                    android:minLines="2"
+                    android:layout_marginBottom="8dp" />
+
+                <EditText
+                    android:id="@+id/etData"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Data da visita (dd/mm/aaaa)"
+                    android:textColorHint="@color/cinza_hint"
+                    android:textColor="@color/cinza_texto"
+                    android:inputType="date"
+                    android:layout_marginBottom="8dp" />
+
+                <EditText
+                    android:id="@+id/etCategoria"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Tipo (ex: praia, montanha, cidade)"
+                    android:textColorHint="@color/cinza_hint"
+                    android:textColor="@color/cinza_texto"
+                    android:inputType="text"
+                    android:layout_marginBottom="8dp" />
+
+                <CheckBox
+                    android:id="@+id/cbFavorito"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Marcar como destaque"
+                    android:textColor="@color/cinza_texto"
+                    android:buttonTint="@color/cinza_botao" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Card: Localização e clima -->
+        <androidx.cardview.widget.CardView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="2dp"
+            app:cardBackgroundColor="@color/cinza_card">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Localização e Clima"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/cinza_texto"
+                    android:layout_marginBottom="10dp" />
+
+                <TextView
+                    android:id="@+id/tvLatitude"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Lat: —"
+                    android:textColor="@color/cinza_hint"
+                    android:layout_marginBottom="4dp" />
+
+                <TextView
+                    android:id="@+id/tvLongitude"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Lng: —"
+                    android:textColor="@color/cinza_hint"
+                    android:layout_marginBottom="4dp" />
+
+                <TextView
+                    android:id="@+id/tvTemperatura"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Temperatura: —"
+                    android:textColor="@color/cinza_hint"
+                    android:layout_marginBottom="4dp" />
+
+                <TextView
+                    android:id="@+id/tvClima"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Condição: —"
+                    android:textColor="@color/cinza_hint" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Botões de ação -->
+        <Button
+            android:id="@+id/btnLocalizacao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="Capturar GPS"
+            android:backgroundTint="@color/cinza_botao"
+            android:textColor="@color/cinza_botao_texto" />
+
+        <Button
+            android:id="@+id/btnMapa"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="Ver no Mapa"
+            android:backgroundTint="@color/cinza_botao"
+            android:textColor="@color/cinza_botao_texto" />
+
+        <Button
+            android:id="@+id/btnSalvar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Registrar Destino"
+            android:backgroundTint="@color/cinza_botao"
+            android:textColor="@color/cinza_botao_texto" />
+
+    </LinearLayout>
+</ScrollView>
