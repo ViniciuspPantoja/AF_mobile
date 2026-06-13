@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -20,40 +22,48 @@ import com.google.android.gms.location.LocationServices;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final int CODIGO_PERMISSAO_GPS = 42;
+    private static final String CHAVE_CLIMA = "e1489d591ede52714f7846700747bee4";
 
-    // Firestore
     private FirebaseFirestore firestore;
     private CollectionReference colecaoRegistros;
 
-    // Campos do formulário
     private EditText campoNome;
     private EditText campoNota;
     private EditText campoDataVisita;
     private EditText campoTipo;
     private CheckBox checkDestacado;
 
-    // Informações de localização e clima
     private TextView infoLat;
     private TextView infoLng;
     private TextView infoTemp;
     private TextView infoCondicao;
 
-    // Botões
     private Button btnCapturarGPS;
     private Button btnVerMapa;
     private Button btnRegistrar;
 
-    // GPS
     private FusedLocationProviderClient clienteGPS;
 
     private double coordLat = 0.0;
     private double coordLng = 0.0;
+
+    private final OkHttpClient httpClient = new OkHttpClient();
+    private final ExecutorService executor = Executors.newSingleThreadExecutor();
+    private final Handler mainHandler = new Handler(Looper.getMainLooper());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,8 +126,42 @@ public class MainActivity extends AppCompatActivity {
                 coordLng = posicao.getLongitude();
                 infoLat.setText("Lat: " + coordLat);
                 infoLng.setText("Lng: " + coordLng);
+                buscarClima(coordLat, coordLng);
             } else {
                 Toast.makeText(this, "Não foi possível obter a posição", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void buscarClima(double lat, double lng) {
+        infoTemp.setText("Temperatura: buscando...");
+        infoCondicao.setText("Condição: buscando...");
+
+        String url = "https://api.openweathermap.org/data/2.5/weather"
+                + "?lat=" + lat
+                + "&lon=" + lng
+                + "&appid=" + CHAVE_CLIMA
+                + "&units=metric"
+                + "&lang=pt_br";
+
+        executor.execute(() -> {
+            Request requisicao = new Request.Builder().url(url).build();
+            try (Response resposta = httpClient.newCall(requisicao).execute()) {
+                if (resposta.isSuccessful() && resposta.body() != null) {
+                    String json = resposta.body().string();
+                    JSONObject obj = new JSONObject(json);
+                    double temperatura = obj.getJSONObject("main").getDouble("temp");
+                    String condicao = obj.getJSONArray("weather")
+                            .getJSONObject(0).getString("description");
+                    mainHandler.post(() -> {
+                        infoTemp.setText("Temperatura: " + temperatura + "°C");
+                        infoCondicao.setText("Condição: " + condicao);
+                    });
+                }
+            } catch (Exception e) {
+                mainHandler.post(() ->
+                        Toast.makeText(this, "Erro ao buscar clima: " + e.getMessage(), Toast.LENGTH_SHORT).show()
+                );
             }
         });
     }
@@ -187,5 +231,11 @@ public class MainActivity extends AppCompatActivity {
         } else {
             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("geo:" + coordLat + "," + coordLng)));
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        executor.shutdown();
     }
 }
